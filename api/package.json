@@ -1,0 +1,29 @@
+{
+  "name": "minimal-basis",
+  "version": "1.0.0",
+  "description": "strat aplication",
+  "keywords": [
+    "docker",
+    "typescript",
+    "node",
+    "login",
+    "crud"
+  ],
+  "homepage": "https://github.com/BrandonDiasDev/minimal-init-base#readme",
+  "bugs": {
+    "url": "https://github.com/BrandonDiasDev/minimal-init-base/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrandonDiasDev/minimal-init-base.git"
+  },
+  "license": "ISC",
+  "author": "Brandon Dias",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
