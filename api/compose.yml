@@ -20,9 +20,9 @@ services:
       DOCKER_ENV: 'true'
       POSTGRES_HOST: db
       POSTGRES_PORT: 5432
-      POSTGRES_DB: minimalinitbase
-      POSTGRES_USER: minimalinitbase
-      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-minimalinitbase_password}'
+      POSTGRES_DB: db
+      POSTGRES_USER: db_user
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-db_password}'
       ALLOWED_ORIGINS: '${ALLOWED_ORIGINS:-http://localhost:3000}'
     volumes:
       - .:/app # Sync entire project for development
@@ -94,9 +94,9 @@ services:
     image: postgres:18-alpine
     container_name: minimalinitbase-db
     environment:
-      POSTGRES_DB: '${POSTGRES_DB:-minimalinitbase}'
-      POSTGRES_USER: '${POSTGRES_USER:-minimalinitbase}'
-      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-minimalinitbase_password}'
+      POSTGRES_DB: '${POSTGRES_DB:-db}'
+      POSTGRES_USER: '${POSTGRES_USER:-db_user}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-db_password}'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:

@@ -13,3 +13,17 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Message {
+  id          String   @id @default(uuid())
+  authorName  String
+  content     String   @db.VarChar(999)
+
+  createdAt   DateTime @default(now())
+
+  ip          String?
+  latitude    Float?
+  longitude   Float?
+  city        String?
+  country     String?
+}
