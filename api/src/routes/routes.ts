@@ -4,8 +4,28 @@ import { MessageController } from "../controller/message.controller";
 const router = Router();
 const messageController = new MessageController();
 
-router.post("/messages", (req, res) => messageController.createMessage(req, res));
-router.get("/messages", (req, res) => messageController.listMessages(req, res));
-router.get("/messages/:id", (req, res) => messageController.getMessageById(req, res));
+router.post("/messages", async (req, res, next) => {
+  try {
+    await messageController.createMessage(req, res);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/messages", async (req, res, next) => {
+  try {
+    await messageController.listMessages(req, res);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/messages/:id", async (req, res, next) => {
+  try {
+    await messageController.getMessageById(req, res);
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default router;
