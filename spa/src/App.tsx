@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import './Lousa.css'
 
 type Message = {
   id: string
@@ -8,15 +9,25 @@ type Message = {
   createdAt: string
 }
 
+type PositionedMessage = Message & {
+x: number
+y: number
+}
+
 function App() {
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<PositionedMessage[]>([])
   const [authorName, setAuthorName] = useState('')
   const [content, setContent] = useState('')
 
   async function loadMessages() {
     const res = await fetch('http://localhost:3000/messages')
     const data = await res.json()
-    setMessages(data)
+    const positioned = data.map((msg: Message) => ({
+    ...msg,
+    x: Math.floor(Math.random() * (window.innerWidth - 260)),
+    y: Math.floor(Math.random() * (window.innerHeight - 180))
+    }))
+    setMessages(positioned)
   }
 
   async function sendMessage() {
@@ -34,11 +45,13 @@ function App() {
     loadMessages()
   }, [])
 
+  
   return (
-    <div>
+    <div className='lousa-infinita'>
 
       {messages.map((msg) => (
-        <div className='card' key={msg.id}>
+        
+        <div className='card card-drag'  key={msg.id} style={{left: msg.x, top : msg.y}}>
          
           <div className='card-content'> 
             <p>{msg.content}</p> 

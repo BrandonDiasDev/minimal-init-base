@@ -12,6 +12,17 @@
   height: 211px;
 }
 
+
+.card-drag{
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: grab;
+  &:active {
+    cursor: grabbing;
+  }
+}
+
 .card-content {
   padding: 20px 20px 0px 20px;
   flex: 0 0 60%;
@@ -31,3 +42,4 @@
   font-size: 12px;
   color: var(--text-sec);
 }
+
