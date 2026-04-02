@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import './App.css'
 
 type Message = {
   id: string
@@ -35,21 +34,35 @@ function App() {
   }, [])
 
   return (
-    <div>
+    <div style={{ padding: 20 }}>
+      <h1>Mensagens</h1>
+
+      <input
+        placeholder="Seu nome"
+        value={authorName}
+        onChange={(e) => setAuthorName(e.target.value)}
+      />
+
+      <br /><br />
+
+      <textarea
+        placeholder="Mensagem"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      />
+
+      <br /><br />
+
+      <button onClick={sendMessage}>Enviar</button>
+
+      <hr />
 
       {messages.map((msg) => (
-        <div className='card' key={msg.id}>
-         
-          <div className='card-content'> 
-            <p>{msg.content}</p> 
-          </div>
-          
-          <div className='card-infos'>
-            <small>{msg.authorName}</small>
-          
-            <small>{new Date(msg.createdAt).toLocaleString()}</small>
-          </div>
-          
+        <div key={msg.id}>
+          <b>{msg.authorName}</b>
+          <p>{msg.content}</p>
+          <small>{new Date(msg.createdAt).toLocaleString()}</small>
+          <hr />
         </div>
       ))}
     </div>
