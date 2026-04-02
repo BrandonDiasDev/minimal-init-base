@@ -64,6 +64,22 @@ function App() {
     loadMessages()
   }, [])
 
+  useEffect(() => {
+  if (!messages.length) return
+
+  console.table(
+    messages.map((m) => ({
+      id: m.id,
+      x: Math.round(m.x),
+      y: Math.round(m.y),
+      mx: Math.round(m.mx),
+      my: Math.round(m.my),
+      dur: Number(m.dur.toFixed(2)),
+      delay: Number(m.delay.toFixed(2))
+    }))
+  )
+}, [messages])
+
   
   return (
     <div className='lousa-infinita'>
@@ -79,8 +95,6 @@ function App() {
                                   '--delay': `${msg.delay}s` 
                                  
                                 } as any}>
-
-           {console.log(msg.mx, msg.my, msg.dur, msg.delay)}
          
           <div className='card-content'> 
             <p>{msg.content}</p> 
