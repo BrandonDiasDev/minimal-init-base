@@ -12,6 +12,10 @@ type Message = {
 type PositionedMessage = Message & {
 x: number
 y: number
+mx: number
+my: number
+dur: number
+delay: number
 }
 
 function App() {
@@ -22,11 +26,26 @@ function App() {
   async function loadMessages() {
     const res = await fetch('http://localhost:3000/messages')
     const data = await res.json()
-    const positioned = data.map((msg: Message) => ({
-    ...msg,
-    x: Math.floor(Math.random() * (window.innerWidth - 260)),
-    y: Math.floor(Math.random() * (window.innerHeight - 180))
-    }))
+
+    const positioned = data.map((msg: Message) => {
+      const mode = Math.floor(rand(1, 4)) // 1=horizontal, 2=vertical, 3=diagonal
+
+      const sx = Math.random() < 0.5 ? -1 : 1
+      const sy = Math.random() < 0.5 ? -1 : 1
+
+      const mx = mode === 2 ? 0 : rand(40, 180) * sx
+      const my = mode === 1 ? 0 : rand(40, 180) * sy
+
+      return {
+        ...msg,
+        x: Math.floor(Math.random() * (window.innerWidth - 260)),
+        y: Math.floor(Math.random() * (window.innerHeight - 180)),
+        mx,
+        my,
+        dur: rand(4, 12),
+        delay: rand(0, 3)
+      }
+    })
     setMessages(positioned)
   }
 
@@ -51,7 +70,17 @@ function App() {
 
       {messages.map((msg) => (
         
-        <div className='card card-drag'  key={msg.id} style={{left: msg.x, top : msg.y}}>
+        <div className='card card-drag card-float'  
+            key={msg.id} style={{left: msg.x, 
+                                 top : msg.y,
+                                  '--mx': `${msg.mx}px`, 
+                                  '--my': `${msg.my}px`, 
+                                  '--dur': `${msg.dur}s`, 
+                                  '--delay': `${msg.delay}s` 
+                                 
+                                } as any}>
+
+           {console.log(msg.mx, msg.my, msg.dur, msg.delay)}
          
           <div className='card-content'> 
             <p>{msg.content}</p> 
@@ -70,3 +99,7 @@ function App() {
 }
 
 export default App
+
+function rand(min: number, max: number) {
+  return Math.random() * (max - min) + min
+}

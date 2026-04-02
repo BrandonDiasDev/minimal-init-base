@@ -43,3 +43,21 @@
   color: var(--text-sec);
 }
 
+
+.card-float{
+  --dur:10s;
+  --delay: 0s;
+  --mx: 0px;
+  --my: 0px; 
+  will-change: transform;
+  animation: drift var(--dur, 8s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(var(--mx, 0px), var(--my, 0px), 0);
+  }
+}
