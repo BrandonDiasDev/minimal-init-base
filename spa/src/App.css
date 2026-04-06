@@ -48,7 +48,7 @@
 }
 
 .fab-div {
-  z-index: 100;
+  z-index: 4;
   width: 6.3rem;
   height: 6.3rem;
   position: fixed;
@@ -70,4 +70,14 @@
 
   }
 
+}
+
+.modalinput-area{
+  position: fixed;
+  z-index: 5;
+  background: white;
+  overflow: hidden;
+  width: 100%;
+  height: 20rem;
+  margin-top: 4rem;
 }

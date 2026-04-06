@@ -45,6 +45,7 @@ function App() {
   const [messages, setMessages] = useState<PositionedMessage[]>([])
   const [authorName, setAuthorName] = useState('')
   const [content, setContent] = useState('')
+  const [isOpen, setIsOpen] = useState(false)
 
   
 
@@ -121,9 +122,22 @@ function App() {
   
   return (    
     <div className='app'>
-      <div className='input-area fab-div'>
+
+      {isOpen && (
+        <div className='modalinput-area'>
+          <button className='close-div' 
+            onClick={() => setIsOpen(false)}>
+          </button>
+          
+        </div>
+      )}
       
-      </div>
+      <button className='input-area fab-div' 
+        onClick={() => setIsOpen(true)}>
+      </button>
+      
+
+      
 
       <div className='lousa-infinita'>
 
