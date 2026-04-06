@@ -119,56 +119,62 @@ function App() {
 }, [messages])
 
   
-  return (
-    <div className='lousa-infinita'>
+  return (    
+    <div className='app'>
+      <div className='input-area fab-div'>
+      
+      </div>
 
-      {messages.map((msg) => (
-        
-        <div className='card card-drag'  
-            key={msg.id} 
+      <div className='lousa-infinita'>
+
+        {messages.map((msg) => (
+          
+          <div className='card card-drag'  
+              key={msg.id} 
+              
+              onTransitionEnd={(e) => {  
+                if (e.target !== e.currentTarget) return
+                if (e.propertyName !== 'left' && e.propertyName !== 'top') return      
+              
+                const p = randomPos()
+              
+                setMessages((prev) =>
+                  prev.map((m) =>
+                    m.id === msg.id
+                      ? {...m,
+                          x: p.x,
+                          y: p.y,
+                          dur: rand(3, 10),
+                          delay: rand(0, 1.5),
+                          easing: randomEasing()
+                        } : m
+                    )
+                )
+              
+              }}
+              
+              style={{left: msg.x, 
+                      top : msg.y,
+                      transitionProperty: 'left, top', 
+                      transitionDuration: `${msg.dur}s`,
+                      transitionTimingFunction: msg.easing, 
+                      transitionDelay: `${msg.delay}s` 
+                      
+                    }}>
+          
+            <div className='card-content'> 
+              <p>{msg.content}</p> 
+            </div>
             
-            onTransitionEnd={(e) => {  
-              if (e.target !== e.currentTarget) return
-              if (e.propertyName !== 'left' && e.propertyName !== 'top') return      
+            <div className='card-infos'>
+              <small>{msg.authorName}</small>
             
-              const p = randomPos()
+              <small>{new Date(msg.createdAt).toLocaleString()}</small>
+            </div>
             
-              setMessages((prev) =>
-                prev.map((m) =>
-                  m.id === msg.id
-                    ? {...m,
-                        x: p.x,
-                        y: p.y,
-                        dur: rand(3, 10),
-                        delay: rand(0, 1.5),
-                        easing: randomEasing()
-                      } : m
-                  )
-              )
-            
-            }}
-            
-            style={{left: msg.x, 
-                    top : msg.y,
-                    transitionProperty: 'left, top', 
-                    transitionDuration: `${msg.dur}s`,
-                    transitionTimingFunction: msg.easing, 
-                    transitionDelay: `${msg.delay}s` 
-                    
-                  }}>
-         
-          <div className='card-content'> 
-            <p>{msg.content}</p> 
           </div>
-          
-          <div className='card-infos'>
-            <small>{msg.authorName}</small>
-          
-            <small>{new Date(msg.createdAt).toLocaleString()}</small>
-          </div>
-          
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   )
 }
